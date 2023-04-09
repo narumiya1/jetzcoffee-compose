@@ -5,6 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -12,9 +14,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.myapplication.model.dummyCategory
+import com.example.myapplication.ui.componentcategory.CategoryItem
+import com.example.myapplication.ui.components.SectionText
 import com.example.myapplication.ui.componentsbar.SearchBar
 import com.example.myapplication.ui.theme.JetzCoffeeTheme
 
@@ -41,6 +47,8 @@ class MainActivity : ComponentActivity() {
 fun JetCoffeeApps(){
     Column {
         Banner()
+        SectionText(stringResource(R.string.section_category))
+        CategoryRow()
     }
 
 }
@@ -58,6 +66,21 @@ fun Banner(
         SearchBar()
     }
 }
+@Composable
+fun CategoryRow(
+    modifier: Modifier =Modifier
+){
+    LazyRow(
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = modifier.padding(16.dp)
+    ){
+        items(dummyCategory, key={ it.textsCategory}) {
+            category->
+            CategoryItem(category = category)
+        }
+    }
+}
 @Preview(showBackground = true, device = Devices.PIXEL_4)
 @Composable
 fun JetCoffeAppPreview(){
@@ -65,6 +88,15 @@ fun JetCoffeAppPreview(){
         JetCoffeeApps()
     }
 }
+/*
+@Composable
+@Preview(showBackground = true)
+fun CategoryRowPreview() {
+    JetzCoffeeTheme {
+        CategoryRow()
+    }
+}
+*/
 @Composable
 fun Greeting(name: String) {
     Text(text = "Hello $name!")
