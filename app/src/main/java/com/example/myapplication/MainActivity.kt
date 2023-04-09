@@ -26,6 +26,7 @@ import com.example.myapplication.model.dummyCategory
 import com.example.myapplication.model.dummyMenu
 import com.example.myapplication.ui.componentcategory.CategoryItem
 import com.example.myapplication.ui.componentmenu.MenuItem
+import com.example.myapplication.ui.components.HomeSections
 import com.example.myapplication.ui.components.SectionText
 import com.example.myapplication.ui.componentsbar.SearchBar
 import com.example.myapplication.ui.theme.JetzCoffeeTheme
@@ -53,12 +54,25 @@ class MainActivity : ComponentActivity() {
 fun JetCoffeeApps(){
     Column (modifier = Modifier.verticalScroll(rememberScrollState())) {
         Banner()
-        SectionText(stringResource(R.string.section_category))
-        CategoryRow()
-        SectionText(stringResource(R.string.section_favorite_menu))
-        MenuRow(dummyMenu)
-        SectionText(stringResource(R.string.section_best_seller_menu))
-        MenuRow(dummyBestSellerMenu)
+//        SectionText(stringResource(R.string.section_category))
+//        CategoryRow()
+//        Ganti dengan HomeSection, dengan cara named parameter.
+        HomeSections(
+            title = stringResource(R.string.section_category),
+            content = { CategoryRow() }
+        )
+//        SectionText(stringResource(R.string.section_favorite_menu))
+//        MenuRow(dummyMenu)
+//       Ganti dengan HomeSection, argument satu per satu.
+        HomeSections(stringResource(R.string.section_best_seller_menu), Modifier, {
+            MenuRow(dummyMenu)
+        })
+//        SectionText(stringResource(R.string.section_best_seller_menu))
+//        MenuRow(dummyBestSellerMenu)
+//       HomeSection, parenthesis
+        HomeSections(stringResource(R.string.section_best_seller_menu), Modifier) {
+            MenuRow(dummyBestSellerMenu)
+        }
     }
 
 }
